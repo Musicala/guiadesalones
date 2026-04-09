@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Musicala · Guía de Salones</title>
+  <meta
+    name="description"
+    content="Guía visual de salones e instrumentos de la Escuela de Artes Musicala."
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Sacramento&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bach: #220a63;
+      --mozart: #0c41c4;
+      --beethoven: #680dbf;
+      --vivaldi: #5729ff;
+      --brahms: #ce0071;
+      --wagner: #0c0a1e;
+      --chopin: #121223;
+      --tchaiko: #232323;
+      --haydn: #e6e8e8;
+      --debussy: #f9f9f9;
+
+      --grad-logo: linear-gradient(135deg, var(--mozart), var(--vivaldi), var(--brahms));
+      --grad-card: linear-gradient(160deg, rgba(87, 41, 255, 0.15), rgba(206, 0, 113, 0.08));
+
+      --font-main: "Roboto", sans-serif;
+      --font-deco: "Sacramento", cursive;
+
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 999px;
+
+      --shadow-soft: 0 12px 34px rgba(0, 0, 0, 0.22);
+      --shadow-strong: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+      --container: 1300px;
+      --transition: 0.28s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(104, 13, 191, 0.12), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(12, 65, 196, 0.12), transparent 30%),
+        var(--wagner);
+      color: var(--debussy);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-orbs span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+    }
+
+    .bg-orbs span:nth-child(1) {
+      width: 600px;
+      height: 600px;
+      top: -200px;
+      left: -150px;
+      background: var(--beethoven);
+    }
+
+    .bg-orbs span:nth-child(2) {
+      width: 500px;
+      height: 500px;
+      bottom: -100px;
+      right: -100px;
+      background: var(--mozart);
+    }
+
+    .bg-orbs span:nth-child(3) {
+      width: 300px;
+      height: 300px;
+      top: 40%;
+      left: 55%;
+      background: var(--brahms);
+      opacity: 0.12;
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 42px 5vw 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .logo-img {
+      width: min(220px, 58vw);
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.28));
+    }
+
+    .header-slogan {
+      font-family: var(--font-deco);
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      color: var(--haydn);
+      opacity: 0.76;
+      letter-spacing: 0.02em;
+    }
+
+    header h1 {
+      font-weight: 300;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-top: 4px;
+    }
+
+    header h1 strong {
+      font-weight: 700;
+    }
+
+    .header-copy {
+      max-width: 760px;
+      font-size: 0.98rem;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .header-bar {
+      width: 100%;
+      max-width: 680px;
+      height: 2px;
+      background: var(--grad-logo);
+      border-radius: 2px;
+      margin-top: 20px;
+      box-shadow: 0 0 22px rgba(87, 41, 255, 0.35);
+    }
+
+    .filters-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 22px 5vw 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(12, 10, 30, 0.9), rgba(12, 10, 30, 0.52), transparent);
+    }
+
+    .filter-btn {
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--haydn);
+      font-family: var(--font-main);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--grad-logo);
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(87, 41, 255, 0.35);
+    }
+
+    .grid-section {
+      position: relative;
+      z-index: 10;
+      padding: 34px 5vw 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--grad-card);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      cursor: default;
+      transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.55s ease backwards;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-strong), 0 0 0 1px rgba(87, 41, 255, 0.18);
+      border-color: rgba(87, 41, 255, 0.28);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--card-accent, var(--grad-logo));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    }
+
+    .card:hover::before {
+      opacity: 0.045;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-category-dot {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.3);
+    }
+
+    .card-num {
+      font-family: var(--font-deco);
+      font-size: 3.5rem;
+      line-height: 1;
+      background: var(--card-accent, var(--grad-logo));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 2px;
+    }
+
+    .card-emoji {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .card-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .card-subtitle {
+      font-size: 0.76rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.48);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin-bottom: 14px;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.67);
+      margin-bottom: 18px;
+    }
+
+    .card-desc em {
+      display: inline-block;
+      margin-top: 8px;
+      font-style: normal;
+      color: rgba(255, 255, 255, 0.48);
+    }
+
+    .tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      transition: all 0.2s ease;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .card:hover .tag {
+      background: rgba(87, 41, 255, 0.18);
+      border-color: rgba(87, 41, 255, 0.38);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .families-section {
+      position: relative;
+      z-index: 10;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 5vw 100px;
+    }
+
+    .families-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+      margin-bottom: 54px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-title .deco {
+      font-family: var(--font-deco);
+      font-size: 1.9rem;
+      color: rgba(255, 255, 255, 0.38);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.65rem, 3vw, 2.25rem);
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    .section-title h2 strong {
+      font-weight: 700;
+    }
+
+    .section-subtext {
+      margin: 10px auto 0;
+      max-width: 700px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.56);
+    }
+
+    .families-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .family-card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .family-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(87, 41, 255, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .family-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .family-name {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .family-instruments {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .family-instruments li {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.58);
+      font-weight: 300;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    .family-instruments li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--brahms);
+      font-weight: 700;
+    }
+
+    footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 26px 5vw 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: 92px;
+      height: auto;
+      display: block;
+      opacity: 0.78;
+      object-fit: contain;
+    }
+
+    footer span,
+    footer a {
+      font-size: 0.8rem;
+      font-weight: 300;
+    }
+
+    footer span {
+      color: rgba(255, 255, 255, 0.34);
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.05s; }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.15s; }
+    .card:nth-child(4) { animation-delay: 0.2s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+    .card:nth-child(6) { animation-delay: 0.3s; }
+    .card:nth-child(7) { animation-delay: 0.35s; }
+    .card:nth-child(8) { animation-delay: 0.4s; }
+    .card:nth-child(9) { animation-delay: 0.45s; }
+    .card:nth-child(10) { animation-delay: 0.5s; }
+
+    @media (max-width: 860px) {
+      .filters-wrap {
+        top: 0;
+      }
+
+      .grid-section {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding-top: 34px;
+      }
+
+      .header-copy {
+        font-size: 0.92rem;
+      }
+
+      .filters-wrap {
+        padding-top: 18px;
+      }
+
+      .grid-section {
+        grid-template-columns: 1fr;
+        padding-top: 28px;
+      }
+
+      .families-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card,
+      .family-card {
+        padding: 20px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .families-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-btn {
+        font-size: 0.74rem;
+        padding: 8px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="page-shell">
+    <header>
+      <img
+        src="logo.png"
+        alt="Logo de Musicala"
+        class="logo-img"
+      />
+
+      <span class="header-slogan">vida, alma y música</span>
+
+      <h1>Guía de <strong>Salones</strong></h1>
+
+      <p class="header-copy">
+        Un recorrido visual por los espacios de Musicala y las familias de instrumentos
+        que hacen parte de nuestra experiencia artística.
+      </p>
+
+      <div class="header-bar" aria-hidden="true"></div>
+    </header>
+
+    <div class="filters-wrap" aria-label="Filtros de salones">
+      <button class="filter-btn active" type="button" data-filter="all">Todos</button>
+      <button class="filter-btn" type="button" data-filter="musica">Música</button>
+      <button class="filter-btn" type="button" data-filter="danza">Danza &amp; Teatro</button>
+      <button class="filter-btn" type="button" data-filter="artes">Artes Plásticas</button>
+      <button class="filter-btn" type="button" data-filter="eventos">Eventos</button>
+    </div>
+
+    <main>
+      <section class="grid-section" id="salonesGrid" aria-label="Salones de Musicala">
+        <article class="card" data-cats="danza" style="--card-accent: linear-gradient(135deg,#CE0071,#5729FF)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">01</div>
+          <span class="card-emoji" aria-hidden="true">💃</span>
+          <h2 class="card-name">Salón Danzas I</h2>
+          <div class="card-subtitle">Amplio · Grupos medianos-grandes</div>
+          <p class="card-desc">
+            Espacio principal para clases de movimiento. Ideal para coreografías grupales,
+            teatro físico y cualquier actividad que requiera desplazamiento libre y trabajo
+            corporal activo.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Danza (todos los géneros)</span>
+            <span class="tag">Teatro</span>
+            <span class="tag">Exploración en danza</span>
+            <span class="tag">Talleres de movimiento</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="artes" style="--card-accent: linear-gradient(135deg,#680DBF,#0C41C4)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">02</div>
+          <span class="card-emoji" aria-hidden="true">🎨</span>
+          <h2 class="card-name">Salón Artes Plásticas</h2>
+          <div class="card-subtitle">Grupos grandes · Trabajo sentado</div>
+          <p class="card-desc">
+            Equipado para grupos amplios que trabajen en mesa. Pensado para proyectos visuales
+            colectivos donde todos puedan estar cómodos y organizados al mismo tiempo.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Dibujo</span>
+            <span class="tag">Pintura</span>
+            <span class="tag">Escultura</span>
+            <span class="tag">Grabado</span>
+            <span class="tag">Artesanías</span>
+            <span class="tag">Talleres visuales</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="eventos musica" style="--card-accent: linear-gradient(135deg,#0C41C4,#220A63)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">03</div>
+          <span class="card-emoji" aria-hidden="true">🎭</span>
+          <h2 class="card-name">Auditorio · Sala de Reuniones</h2>
+          <div class="card-subtitle">Multiusos · Eventos y presentaciones</div>
+          <p class="card-desc">
+            El espacio más versátil de Musicala. Perfecto para conciertos, muestras de proceso,
+            conferencias y reuniones institucionales.
+            <em>Nota: se recomienda evitar clases con niños pequeños por los equipos y elementos del espacio.</em>
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Conciertos</span>
+            <span class="tag">Muestras de proceso</span>
+            <span class="tag">Conferencias</span>
+            <span class="tag">Reuniones</span>
+            <span class="tag">Talleres especiales</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="musica" style="--card-accent: linear-gradient(135deg,#5729FF,#680DBF)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">04</div>
+          <span class="card-emoji" aria-hidden="true">🎻</span>
+          <h2 class="card-name">Salón Cuerdas Frotadas</h2>
+          <div class="card-subtitle">Nivel avanzado · Piano 7 oct.</div>
+          <p class="card-desc">
+            Dotado con piano de 7 octavas. Destinado a estudiantes de nivel avanzado o adultos
+            que requieran un entorno de alta calidad acústica para su práctica y formación.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Violín</span>
+            <span class="tag">Viola</span>
+            <span class="tag">Cello</span>
+            <span class="tag">Contrabajo</span>
+            <span class="tag">Cuerdas pulsadas</span>
+            <span class="tag">Canto</span>
+            <span class="tag">Piano avanzado</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="musica" style="--card-accent: linear-gradient(135deg,#CE0071,#680DBF)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">05</div>
+          <span class="card-emoji" aria-hidden="true">🎵</span>
+          <h2 class="card-name">Salón Multipropósito</h2>
+          <div class="card-subtitle">Grupos pequeños · 2–3 personas máx.</div>
+          <p class="card-desc">
+            Espacio íntimo y acogedor para clases individuales o en pareja. Su escala favorece
+            la concentración, la escucha activa y el trabajo personalizado de alta calidad.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Canto</span>
+            <span class="tag">Piano</span>
+            <span class="tag">Cuerdas pulsadas</span>
+            <span class="tag">Clases individuales</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="artes" style="--card-accent: linear-gradient(135deg,#0C41C4,#CE0071)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">06</div>
+          <span class="card-emoji" aria-hidden="true">🖌️</span>
+          <h2 class="card-name">Salón Artes Plásticas Pequeño</h2>
+          <div class="card-subtitle">Grupos pequeños · Trabajo sentado</div>
+          <p class="card-desc">
+            Versión íntima del salón de artes. Ideal para talleres más personalizados o procesos
+            creativos que requieran mayor detalle y atención individualizada.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Dibujo</span>
+            <span class="tag">Pintura</span>
+            <span class="tag">Escultura</span>
+            <span class="tag">Ilustración</span>
+            <span class="tag">Manualidades</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="musica danza" style="--card-accent: linear-gradient(135deg,#5729FF,#CE0071)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">07</div>
+          <span class="card-emoji" aria-hidden="true">⭐</span>
+          <h2 class="card-name">Salón Musicalitos</h2>
+          <div class="card-subtitle">Niños · Exploración musical</div>
+          <p class="card-desc">
+            El hogar de los más pequeños de Musicala. Diseñado especialmente para primera infancia
+            y niños: espacio seguro, estimulante y lleno de posibilidades para explorar la música
+            con todos los sentidos.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Musibabies</span>
+            <span class="tag">Musicalitos</span>
+            <span class="tag">Musikids</span>
+            <span class="tag">Cuerdas pulsadas</span>
+            <span class="tag">Cuerdas frotadas</span>
+            <span class="tag">Canto infantil</span>
+            <span class="tag">Piano niños</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="musica" style="--card-accent: linear-gradient(135deg,#220A63,#5729FF)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">08</div>
+          <span class="card-emoji" aria-hidden="true">🎹</span>
+          <h2 class="card-name">Salón Piano</h2>
+          <div class="card-subtitle">Personalizadas · Varios instrumentos</div>
+          <p class="card-desc">
+            Espacio dedicado principalmente al piano con posibilidad de albergar clases personalizadas
+            de otros instrumentos. Su acústica controlada lo hace perfecto para el trabajo técnico detallado.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Piano</span>
+            <span class="tag">Canto</span>
+            <span class="tag">Guitarra</span>
+            <span class="tag">Cuerdas frotadas</span>
+            <span class="tag">Clases individuales</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="danza" style="--card-accent: linear-gradient(135deg,#CE0071,#0C41C4)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">09</div>
+          <span class="card-emoji" aria-hidden="true">🕺</span>
+          <h2 class="card-name">Salón Danzas II</h2>
+          <div class="card-subtitle">Movimiento libre · Grupos variados</div>
+          <p class="card-desc">
+            Segundo espacio de danza de Musicala, complementario al Salón 1. Permite que dos grupos
+            de movimiento trabajen simultáneamente sin interferencias, expandiendo la capacidad
+            de clases de danza y teatro.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Danza (todos los géneros)</span>
+            <span class="tag">Teatro</span>
+            <span class="tag">Exploración corporal</span>
+          </div>
+        </article>
+
+        <article class="card" data-cats="musica" style="--card-accent: linear-gradient(135deg,#680DBF,#CE0071)">
+          <div class="card-category-dot" aria-hidden="true"></div>
+          <div class="card-num">10</div>
+          <span class="card-emoji" aria-hidden="true">🥁</span>
+          <h2 class="card-name">Salón Batería y Ensamble</h2>
+          <div class="card-subtitle">Percusión · Grupos de ensamble</div>
+          <p class="card-desc">
+            El único espacio de Musicala con insonorización adecuada para percusión. También funciona
+            como sala de ensamble donde varios instrumentistas pueden ensayar juntos, ya sean
+            instrumentos electrónicos o acústicos amplificados.
+          </p>
+          <div class="tags-wrap">
+            <span class="tag">Batería</span>
+            <span class="tag">Percusión</span>
+            <span class="tag">Ensamble acústico</span>
+            <span class="tag">Ensamble electrónico</span>
+            <span class="tag">Banda</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="families-section" aria-label="Familias de instrumentos">
+        <div class="families-divider" aria-hidden="true"></div>
+
+        <div class="section-title">
+          <span class="deco">familias</span>
+          <h2>Familias de <strong>Instrumentos</strong></h2>
+          <p class="section-subtext">
+            Una referencia rápida para ubicar mejor los procesos musicales y las áreas que viven en Musicala.
+          </p>
+        </div>
+
+        <div class="families-grid">
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🎻</div>
+            <h3 class="family-name">Cuerdas Frotadas</h3>
+            <ul class="family-instruments">
+              <li>Violín</li>
+              <li>Viola</li>
+              <li>Violonchelo (Cello)</li>
+              <li>Contrabajo</li>
+              <li>Viola da gamba</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🎸</div>
+            <h3 class="family-name">Cuerdas Pulsadas</h3>
+            <ul class="family-instruments">
+              <li>Guitarra clásica</li>
+              <li>Guitarra eléctrica</li>
+              <li>Guitarra acústica</li>
+              <li>Ukelele</li>
+              <li>Bajo eléctrico</li>
+              <li>Arpa</li>
+              <li>Bandola / Tiple</li>
+              <li>Mandolina</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🎹</div>
+            <h3 class="family-name">Teclado / Piano</h3>
+            <ul class="family-instruments">
+              <li>Piano acústico</li>
+              <li>Piano eléctrico</li>
+              <li>Teclado / Sintetizador</li>
+              <li>Órgano</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🎷</div>
+            <h3 class="family-name">Vientos Madera</h3>
+            <ul class="family-instruments">
+              <li>Flauta traversa</li>
+              <li>Flauta dulce</li>
+              <li>Clarinete</li>
+              <li>Saxofón</li>
+              <li>Oboe</li>
+              <li>Fagot</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🎺</div>
+            <h3 class="family-name">Vientos Metal</h3>
+            <ul class="family-instruments">
+              <li>Trompeta</li>
+              <li>Trombón</li>
+              <li>Corno / Tuba</li>
+              <li>Eufonio</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🥁</div>
+            <h3 class="family-name">Percusión</h3>
+            <ul class="family-instruments">
+              <li>Batería</li>
+              <li>Cajón peruano</li>
+              <li>Congas / Bongós</li>
+              <li>Marimba / Xilófono</li>
+              <li>Instrumentos Orff</li>
+              <li>Percusión corporal</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">🎤</div>
+            <h3 class="family-name">Voz / Canto</h3>
+            <ul class="family-instruments">
+              <li>Canto lírico</li>
+              <li>Canto popular</li>
+              <li>Técnica vocal</li>
+              <li>Coro / Ensamble vocal</li>
+              <li>Beatbox</li>
+            </ul>
+          </article>
+
+          <article class="family-card">
+            <div class="family-icon" aria-hidden="true">💃</div>
+            <h3 class="family-name">Danza (todos los géneros)</h3>
+            <ul class="family-instruments">
+              <li>Ballet / Danza clásica</li>
+              <li>Contemporáneo</li>
+              <li>Folclor colombiano</li>
+              <li>Salsa / Ritmos latinos</li>
+              <li>Hip-hop / Urbano</li>
+              <li>Flamenco</li>
+              <li>Danza árabe</li>
+              <li>Teatro físico</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <img
+        src="logo.png"
+        alt="Logo de Musicala"
+        class="footer-logo"
+      />
+      <span>© Musicala SAS · Bogotá, Colombia</span>
+      <a href="https://imusicala.com" target="_blank" rel="noopener noreferrer">imusicala.com</a>
+      <a href="https://instagram.com/imusicala" target="_blank" rel="noopener noreferrer">@imusicala</a>
+      <span>+57 319 352 9475</span>
+    </footer>
+  </div>
+
+  <script>
+    const btns = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".card");
+
+    btns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const filter = btn.dataset.filter;
+
+        cards.forEach((card) => {
+          const cats = card.dataset.cats || "";
+          const visible = filter === "all" || cats.includes(filter);
+          card.classList.toggle("hidden", !visible);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
